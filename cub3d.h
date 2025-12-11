@@ -2,6 +2,22 @@
 #define CUB3_D
 
 #define PI 3.14159265358979323846
+
+// Key codes
+#define KEY_W 119
+#define KEY_S 115  
+#define KEY_A 97
+#define KEY_D 100
+#define KEY_LEFT 65361
+#define KEY_RIGHT 65363
+#define KEY_ESC 65307
+
+// Window constants
+#define WIN_WIDTH 1280
+#define WIN_HEIGHT 720
+
+// Texture size
+#define TEX_SIZE 64
 typedef struct s_color
 {
     int r;
@@ -17,7 +33,12 @@ typedef struct s_textures
     char *south; // buralara haritadan okumadan gelen texture xpm yolları gelicek :D
     char *east;
     char *west;
-
+    void *north_img;
+    void *south_img;
+    void *east_img;
+    void *west_img;
+    int tex_width;
+    int tex_height;
 } t_textures;
 
 
@@ -31,8 +52,11 @@ typedef struct s_map
 
 typedef struct s_player
 {
-    int x;
-    int y;//konumlarım 
+    double x;
+    double y;
+    double dir;     // Radyan cinsinden yön açısı
+    double move_speed;
+    double rot_speed;
     int angle_eye; //bakış açım olucak değişebilir belki hayat
 }t_player;
 
@@ -42,7 +66,28 @@ typedef struct s_raycast
     double ray_x;
     double ray_y;
     double distance;
+    double wall_x;
+    int hit_side; // 0: NS duvarı, 1: EW duvarı
+    int map_x;
+    int map_y;
+
+
+
+    int step_x;
+    int step_y;
+
+    double side_dist_x;
+    double side_dist_y;
+
+    double delta_dist_x, delta_dist_y;
 } t_raycast;
+
+
+typedef struct s_dda
+{
+    int hit;
+    int side;
+}t_dda;
 
 typedef struct s_new_image
 {
@@ -54,8 +99,19 @@ typedef struct s_new_image
 
 }t_new_image;
 
+typedef struct s_keys {
+	int w;
+	int s;
+	int a;
+	int d;
+	int left;
+	int right;
+}	t_keys;
+
 typedef struct s_game
 {
+    t_keys keys;
+
     void *mlx;
     void *win;
     t_player player;
@@ -74,4 +130,25 @@ void render_floor_celling(t_game *game);
 void put_player(t_game *game);
 void my_put_pixel(t_game *game,int x,int y,int color);
 void render_walls(t_game *game);
+
+// Raycasting functions
+void perform_raycasting(t_game *game);
+t_raycast cast_ray(t_game *game, double angle);
+void draw_wall_slice(t_game *game, int x, t_raycast ray);
+
+// Controller functions
+int key_press(int keycode, t_game *game);
+int key_release(int keycode, t_game *game);
+int main_loop(t_game *game);
+void update_player_position(t_game *game);
+int close_window(t_game *game);
+
+// Cleanup functions
+void cleanup_textures(t_game *game);
+void cleanup_map(t_game *game);
+
+// Texture functions
+void load_textures(t_game *game);
+int get_texture_color(t_game *game, t_raycast ray, int y, int wall_height);
+int get_texture_color(t_game *game, t_raycast ray, int y, int wall_height);
 #endif
