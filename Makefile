@@ -15,15 +15,15 @@ SRCS = \
 
 OBJS = $(SRCS:.c=.o)
 
-MLX_DIR = minilibx
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext
+MLX_DIR = mlx
+MLX_FLAGS = -L$(MLX_DIR)  -lmlx -lXext -lX11 -lz
 INCLUDES = -I$(MLX_DIR)
 
 all: $(NAME)
 
 $(NAME): $(SRCS)
 	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(SRCS) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME) -L/usr/X11/lib
 
 clean:
 	make -C $(MLX_DIR) clean

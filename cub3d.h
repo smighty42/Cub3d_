@@ -1,7 +1,7 @@
 #ifndef CUB3_D
 #define CUB3_D
 
-#define PI 3.14159265358979323846
+#define PI 3.141592653
 
 // Key codes
 #define KEY_W 119
@@ -57,7 +57,7 @@ typedef struct s_player
     double dir;     // Radyan cinsinden yön açısı
     double move_speed;
     double rot_speed;
-    int angle_eye; //bakış açım olucak değişebilir belki hayat
+    double angle_eye; //bakış açım olucak değişebilir belki hayat
 }t_player;
 
 typedef struct s_raycast

@@ -1,4 +1,4 @@
-#include "../minilibx/mlx.h"
+#include "../mlx/mlx.h"
 #include "../cub3d.h"
 #include <stdio.h>
 
