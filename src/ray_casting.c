@@ -28,7 +28,6 @@ void	ray_step(t_raycast *ray, double angle)
 }
 void	dda_calculator(t_game *game, t_dda *dda, t_raycast *ray)
 {
-
 	while (dda->hit == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -134,13 +133,15 @@ void	perform_raycasting(t_game *game)
 	double		ray_angle;
 	double		angle_step;
 	t_raycast	ray;
-
+	x=0;
 	angle_step = (PI / 3) / WIN_WIDTH;       // 60 derece görüş açısı
 	ray_angle = game->player.dir - (PI / 6); // -30 derece başlangıç
-	for (x = 0; x < WIN_WIDTH; x++)
+
+	while (x < WIN_WIDTH)
 	{
 		ray = cast_ray(game, ray_angle);
 		draw_wall_slice(game, x, ray);
 		ray_angle += angle_step;
+		x++;
 	}
 }
