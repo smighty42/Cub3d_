@@ -5,12 +5,17 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = \
 	src/main1.c \
-	src/fake_parser_map1.c \
+	src/parser.c \
+	src/map_validation.c \
 	src/background.c \
 	src/player.c \
 	src/ray_casting.c \
 	src/controller.c \
 	src/draw_wall.c \
+	src/utils.c \
+	src/string_utils.c \
+	src/get_next_line.c \
+	src/texture_loader.c
 
 
 OBJS = $(SRCS:.c=.o)

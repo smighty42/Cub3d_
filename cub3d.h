@@ -125,7 +125,22 @@ typedef struct s_game
 
 }t_game;
 
-void fake_parse_cub(t_game *game, char *file);
+// Parser functions
+void	parse_cub_file(t_game *game, char *filename);
+int		validate_map(t_game *game);
+int		find_and_init_player(t_game *game);
+
+// Utility functions
+int		ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, int n);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(const char *s1, const char *s2);
+int		ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
+char	*ft_strtrim(char const *s1, char const *set);
+char	*get_next_line(int fd);
+char	*ft_strchr(const char *s, int c);
+
 void render_floor_celling(t_game *game);
 void put_player(t_game *game);
 void my_put_pixel(t_game *game,int x,int y,int color);
@@ -149,6 +164,5 @@ void cleanup_map(t_game *game);
 
 // Texture functions
 void load_textures(t_game *game);
-int get_texture_color(t_game *game, t_raycast ray, int y, int wall_height);
 int get_texture_color(t_game *game, t_raycast ray, int y, int wall_height);
 #endif

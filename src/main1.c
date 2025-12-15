@@ -30,12 +30,17 @@ void init_game(t_game *game,char *file)
     game->keys.left = 0;
     game->keys.right = 0;
     
-    //map parse ör:parse_cub(file,game);
-    fake_parse_cub(game,file);
+    // Real map parser
+    parse_cub_file(game, file);
+    if (validate_map(game) != 0)
+    {
+        printf("Error: Map validation failed\n");
+        exit(1);
+    }
+    
     init(game);
     put_celling_floor(game);
     
-
     load_textures(game);
 }
 
@@ -43,12 +48,12 @@ void init_game(t_game *game,char *file)
 int main(int ac, char **av)
 {
     t_game game;
-    (void)ac;
     
-
-    
-  //  if(ac != 2)
-  //    return(1); //hata mesajı
+    if(ac != 2)
+    {
+        printf("Usage: ./cub3D <map.cub>\n");
+        return(1);
+    }
     init_game(&game,av[1]);
     
     // Hook'ları ayarla
