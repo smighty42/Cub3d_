@@ -46,9 +46,6 @@ void mlx_put_color(t_game *game)
 
 }
 
-
-
-
 void render_floor_celling(t_game *game)
 {
     mlx_put_color(game);

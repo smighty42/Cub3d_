@@ -26,18 +26,15 @@ static int	count_lines(char *filename)
 	return (count);
 }
 
-static char	**read_file_lines(char *filename)
+static char	**alloc_lines(char *filename, int *line_count)
 {
-	int		fd;
-	char	*line;
 	char	**lines;
-	int		line_count;
-	int		i;
+	int		fd;
 
-	line_count = count_lines(filename);
-	if (line_count <= 0)
+	*line_count = count_lines(filename);
+	if (*line_count <= 0)
 		return (NULL);
-	lines = malloc(sizeof(char *) * (line_count + 1));
+	lines = malloc(sizeof(char *) * (*line_count + 1));
 	if (!lines)
 		return (NULL);
 	fd = open(filename, O_RDONLY);
@@ -46,10 +43,29 @@ static char	**read_file_lines(char *filename)
 		free(lines);
 		return (NULL);
 	}
+	return (lines);
+}
+
+static char	**read_file_lines(char *filename)
+{
+	int		fd;
+	char	*line;
+	char	**lines;
+	int		line_count;
+	int		i;
+
+	lines = alloc_lines(filename, &line_count);
+	if (!lines || line_count == 0)
+		return (NULL);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
 	i = 0;
 	while (i < line_count)
 	{
 		line = get_next_line(fd);
+		if (!line)
+			break;
 		lines[i] = ft_strtrim(line, "\n");
 		free(line);
 		i++;
@@ -59,7 +75,7 @@ static char	**read_file_lines(char *filename)
 	return (lines);
 }
 
-static void	free_split(char **split)
+void	free_split(char **split)
 {
 	int	i;
 
@@ -74,13 +90,24 @@ static void	free_split(char **split)
 	free(split);
 }
 
-static int	parse_texture_line(t_game *game, char *line)
+static int	check_file_exists(char *path)
 {
-	char	**split;
+	int	fd;
 
-	split = ft_split(line, ' ');
-	if (!split || !split[1])
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
 		return (-1);
+	close(fd);
+	return (0);
+}
+
+static int	set_texture(t_game *game, char *line, char **split)
+{
+	if (check_file_exists(split[1]) != 0)
+	{
+		printf("Error: Texture file not found: %s\n", split[1]);
+		return (-1);
+	}
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		game->texture.north = ft_strdup(split[1]);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -90,28 +117,75 @@ static int	parse_texture_line(t_game *game, char *line)
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		game->texture.east = ft_strdup(split[1]);
 	else
+		return (-1);
+	return (0);
+}
+
+static int	parse_texture_line(t_game *game, char *line)
+{
+	char	**split;
+	int		result;
+	int		count;
+
+	split = ft_split(line, ' ');
+	if (!split || !split[1])
+		return (-1);
+	count = 0;
+	while (split[count])
+		count++;
+	if (count != 2)
 	{
 		free_split(split);
 		return (-1);
 	}
+	if (!split[1][0])
+	{
+		free_split(split);
+		return (-1);
+	}
+	result = set_texture(game, line, split);
 	free_split(split);
-	return (0);
+	return (result);
 }
 
-static int	parse_rgb_color(char *rgb_str, t_color *color)
+static int	is_valid_number(char *str)
 {
-	char	**rgb;
-	int		r;
-	int		g;
-	int		b;
+	int	i;
 
-	rgb = ft_split(rgb_str, ',');
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
+	if (!str || !str[0])
+		return (0);
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	parse_rgb(char **rgb, t_color *color)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	count;
+
+	count = 0;
+	while (rgb && rgb[count])
+		count++;
+	if (count != 3)
+		return (-1);
+	if (!is_valid_number(rgb[0]) || !is_valid_number(rgb[1]) 
+		|| !is_valid_number(rgb[2]))
 		return (-1);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
-	free_split(rgb);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (-1);
 	color->r = r;
@@ -121,14 +195,39 @@ static int	parse_rgb_color(char *rgb_str, t_color *color)
 	return (0);
 }
 
+static int	parse_rgb_color(char *rgb_str, t_color *color)
+{
+	char	**rgb;
+	int		result;
+
+	rgb = ft_split(rgb_str, ',');
+	result = parse_rgb(rgb, color);
+	free_split(rgb);
+	return (result);
+}
+
 static int	parse_color_line(t_game *game, char *line)
 {
 	char	**split;
 	int		result;
+	int		count;
 
 	split = ft_split(line, ' ');
 	if (!split || !split[1])
 		return (-1);
+	count = 0;
+	while (split[count])
+		count++;
+	if (count != 2)
+	{
+		free_split(split);
+		return (-1);
+	}
+	if (!split[1][0])
+	{
+		free_split(split);
+		return (-1);
+	}
 	if (ft_strncmp(line, "F ", 2) == 0)
 		result = parse_rgb_color(split[1], &game->floor_color);
 	else if (ft_strncmp(line, "C ", 2) == 0)
@@ -142,6 +241,44 @@ static int	parse_color_line(t_game *game, char *line)
 	return (result);
 }
 
+static int	check_identifier(char *line)
+{
+	int	len;
+
+	len = ft_strlen(line);
+	if (len >= 2 && ft_strncmp(line, "NO", 2) == 0)
+	{
+		if (len == 2 || line[2] == ' ' || line[2] == '\t')
+			return (1);
+	}
+	if (len >= 2 && ft_strncmp(line, "SO", 2) == 0)
+	{
+		if (len == 2 || line[2] == ' ' || line[2] == '\t')
+			return (1);
+	}
+	if (len >= 2 && ft_strncmp(line, "WE", 2) == 0)
+	{
+		if (len == 2 || line[2] == ' ' || line[2] == '\t')
+			return (1);
+	}
+	if (len >= 2 && ft_strncmp(line, "EA", 2) == 0)
+	{
+		if (len == 2 || line[2] == ' ' || line[2] == '\t')
+			return (1);
+	}
+	if (len >= 1 && line[0] == 'F')
+	{
+		if (len == 1 || line[1] == ' ' || line[1] == '\t')
+			return (2);
+	}
+	if (len >= 1 && line[0] == 'C')
+	{
+		if (len == 1 || line[1] == ' ' || line[1] == '\t')
+			return (2);
+	}
+	return (0);
+}
+
 static int	is_texture_or_color(char *line)
 {
 	if (!line || !line[0])
@@ -150,19 +287,7 @@ static int	is_texture_or_color(char *line)
 		return (0);
 	if (line[0] == '1' || line[0] == '0')
 		return (0);
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (1);
-	if (ft_strncmp(line, "SO ", 3) == 0)
-		return (1);
-	if (ft_strncmp(line, "WE ", 3) == 0)
-		return (1);
-	if (ft_strncmp(line, "EA ", 3) == 0)
-		return (1);
-	if (ft_strncmp(line, "F ", 2) == 0)
-		return (2);
-	if (ft_strncmp(line, "C ", 2) == 0)
-		return (2);
-	return (0);
+	return (check_identifier(line));
 }
 
 static int	find_map_start(char **lines)
@@ -183,20 +308,29 @@ static int	find_map_start(char **lines)
 	return (-1);
 }
 
+static int	get_map_size(char **lines, int start, int *h, int *max_w)
+{
+	int	len;
+
+	*h = 0;
+	*max_w = 0;
+	while (lines[start + *h])
+	{
+		len = ft_strlen(lines[start + *h]);
+		if (len > *max_w)
+			*max_w = len;
+		(*h)++;
+	}
+	return (0);
+}
+
 static int	parse_map_data(t_game *game, char **lines, int start)
 {
 	int	h;
 	int	max_w;
 	int	i;
 
-	h = 0;
-	max_w = 0;
-	while (lines[start + h])
-	{
-		if (ft_strlen(lines[start + h]) > max_w)
-			max_w = ft_strlen(lines[start + h]);
-		h++;
-	}
+	get_map_size(lines, start, &h, &max_w);
 	game->map.height = h;
 	game->map.width = max_w;
 	game->map.map = malloc(sizeof(char *) * (h + 1));
@@ -214,14 +348,59 @@ static int	parse_map_data(t_game *game, char **lines, int start)
 	return (0);
 }
 
+static int	parse_elements(t_game *game, char **lines)
+{
+	int	i;
+	int	tex_count;
+	int	type;
+
+	i = 0;
+	tex_count = 0;
+	while (lines[i] && tex_count < 6)
+	{
+		type = is_texture_or_color(lines[i]);
+		if (type == 1)
+		{
+			if (parse_texture_line(game, lines[i]) != 0)
+			{
+				printf("Error: Invalid texture line: %s\n", lines[i]);
+				return (-1);
+			}
+			tex_count++;
+		}
+		else if (type == 2)
+		{
+			if (parse_color_line(game, lines[i]) != 0)
+			{
+				printf("Error: Invalid color line: %s\n", lines[i]);
+				return (-1);
+			}
+			tex_count++;
+		}
+		i++;
+	}
+	return (tex_count);
+}
+
+static int	check_file_ext(char *filename)
+{
+	int	len;
+
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (-1);
+	if (ft_strncmp(filename + len - 4, ".cub", 4) != 0)
+		return (-1);
+	return (0);
+}
+
 void	parse_cub_file(t_game *game, char *filename)
 {
 	char	**lines;
-	int		i;
 	int		map_start;
 	int		tex_count;
 
-	if (ft_strncmp(filename + ft_strlen(filename) - 4, ".cub", 4) != 0)
+	if (check_file_ext(filename) != 0)
 	{
 		printf("Error: File must have .cub extension\n");
 		return ;
@@ -232,38 +411,24 @@ void	parse_cub_file(t_game *game, char *filename)
 		printf("Error: Failed to read file\n");
 		return ;
 	}
-	i = 0;
-	tex_count = 0;
-	while (lines[i] && tex_count < 6)
+	tex_count = parse_elements(game, lines);
+	if (tex_count == -1 || tex_count != 6)
 	{
-		if (is_texture_or_color(lines[i]) == 1)
-		{
-			if (parse_texture_line(game, lines[i]) == 0)
-				tex_count++;
-		}
-		else if (is_texture_or_color(lines[i]) == 2)
-		{
-			if (parse_color_line(game, lines[i]) == 0)
-				tex_count++;
-		}
-		i++;
-	}
-	if (tex_count != 6)
-	{
-		printf("Error: Missing texture or color info\n");
+		if (tex_count != -1)
+			printf("Error: Missing texture or color info (found %d/6)\n", tex_count);
 		free_split(lines);
 		return ;
 	}
 	map_start = find_map_start(lines);
 	if (map_start == -1)
 	{
-		printf("Error: No valid map found\n");
+		printf("Error: No map found\n");
 		free_split(lines);
 		return ;
 	}
 	if (parse_map_data(game, lines, map_start) != 0)
 	{
-		printf("Error: Failed to parse map\n");
+		printf("Error: Map parsing failed\n");
 		free_split(lines);
 		return ;
 	}

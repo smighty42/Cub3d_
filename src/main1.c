@@ -20,18 +20,31 @@ void put_celling_floor(t_game *game)
    game->image.new_image=mlx_new_image(game->mlx,game->width,game->height);
    game->image.add=mlx_get_data_addr(game->image.new_image,&game->image.pixel_bit,&game->image.line_length_byte,&game->image.endian);
 }
-void init_game(t_game *game,char *file)
+void ft_resetter(t_game *game)
 {
-  
     game->keys.w = 0;
     game->keys.s = 0;
     game->keys.a = 0;
     game->keys.d = 0;
     game->keys.left = 0;
     game->keys.right = 0;
-    
-    // Real map parser
+    game->map.map = NULL;
+    game->texture.north = NULL;
+    game->texture.south = NULL;
+    game->texture.east = NULL;
+    game->texture.west = NULL;
+}
+void init_game(t_game *game,char *file)
+{
+    ft_resetter(game);
     parse_cub_file(game, file);
+    if (!game->map.map || !game->texture.north || !game->texture.south 
+        || !game->texture.east || !game->texture.west)
+    {
+        printf("Error: Parsing failed\n");
+        exit(1);
+    }
+    
     if (validate_map(game) != 0)
     {
         printf("Error: Map validation failed\n");
@@ -55,8 +68,6 @@ int main(int ac, char **av)
         return(1);
     }
     init_game(&game,av[1]);
-    
-    // Hook'ları ayarla
     mlx_hook(game.win, 2, 1L<<0, key_press, &game);  
     mlx_hook(game.win, 3, 1L<<1, key_release, &game); 
     mlx_hook(game.win, 17, 1L<<17, close_window, &game); 

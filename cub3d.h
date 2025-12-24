@@ -3,7 +3,6 @@
 
 #define PI 3.141592653
 
-// Key codes
 #define KEY_W 119
 #define KEY_S 115  
 #define KEY_A 97
@@ -11,12 +10,9 @@
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
 #define KEY_ESC 65307
-
-// Window constants
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
 
-// Texture size
 #define TEX_SIZE 64
 typedef struct s_color
 {
@@ -125,12 +121,10 @@ typedef struct s_game
 
 }t_game;
 
-// Parser functions
 void	parse_cub_file(t_game *game, char *filename);
 int		validate_map(t_game *game);
 int		find_and_init_player(t_game *game);
-
-// Utility functions
+void	free_split(char **split);
 int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, int n);
 char	*ft_strdup(const char *s1);
@@ -140,29 +134,21 @@ char	**ft_split(char const *s, char c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
-
 void render_floor_celling(t_game *game);
 void put_player(t_game *game);
 void my_put_pixel(t_game *game,int x,int y,int color);
 void render_walls(t_game *game);
-
-// Raycasting functions
 void perform_raycasting(t_game *game);
 t_raycast cast_ray(t_game *game, double angle);
 void draw_wall_slice(t_game *game, int x, t_raycast ray);
-
-// Controller functions
 int key_press(int keycode, t_game *game);
 int key_release(int keycode, t_game *game);
 int main_loop(t_game *game);
 void update_player_position(t_game *game);
 int close_window(t_game *game);
-
-// Cleanup functions
 void cleanup_textures(t_game *game);
 void cleanup_map(t_game *game);
-
-// Texture functions
 void load_textures(t_game *game);
 int get_texture_color(t_game *game, t_raycast ray, int y, int wall_height);
+void ft_resetter(t_game *game);
 #endif

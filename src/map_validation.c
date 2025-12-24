@@ -39,10 +39,9 @@ static int	check_map_chars(t_game *game)
 	return (0);
 }
 
-static int	check_border_walls(t_game *game)
+static int	check_first_last(t_game *game)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (game->map.map[0][i])
@@ -59,30 +58,68 @@ static int	check_border_walls(t_game *game)
 			return (-1);
 		i++;
 	}
+	return (0);
+}
+
+static int	check_border_walls(t_game *game)
+{
+	int	j;
+	int	len;
+	int	last_char_idx;
+
+	if (check_first_last(game) != 0)
+		return (-1);
 	j = 0;
 	while (j < game->map.height)
 	{
 		if (game->map.map[j][0] != '1' && game->map.map[j][0] != ' ')
 			return (-1);
+		len = ft_strlen(game->map.map[j]);
+		if (len > 0)
+		{
+			last_char_idx = len - 1;
+			while (last_char_idx >= 0 && game->map.map[j][last_char_idx] == ' ')
+				last_char_idx--;
+			if (last_char_idx >= 0 && game->map.map[j][last_char_idx] != '1')
+				return (-1);
+		}
 		j++;
 	}
 	return (0);
 }
 
-static int	check_space_neighbors(t_game *game, int y, int x)
+static int	check_top_bottom(t_game *game, int y, int x)
 {
 	if (y > 0 && x < ft_strlen(game->map.map[y - 1]))
-		if (game->map.map[y - 1][x] == '0' || is_player_char(game->map.map[y - 1][x]))
+		if (game->map.map[y - 1][x] == '0'
+			|| is_player_char(game->map.map[y - 1][x]))
 			return (-1);
 	if (y < game->map.height - 1 && x < ft_strlen(game->map.map[y + 1]))
-		if (game->map.map[y + 1][x] == '0' || is_player_char(game->map.map[y + 1][x]))
+		if (game->map.map[y + 1][x] == '0'
+			|| is_player_char(game->map.map[y + 1][x]))
 			return (-1);
+	return (0);
+}
+
+static int	check_left_right(t_game *game, int y, int x)
+{
 	if (x > 0)
-		if (game->map.map[y][x - 1] == '0' || is_player_char(game->map.map[y][x - 1]))
+		if (game->map.map[y][x - 1] == '0'
+			|| is_player_char(game->map.map[y][x - 1]))
 			return (-1);
 	if (x < ft_strlen(game->map.map[y]) - 1)
-		if (game->map.map[y][x + 1] == '0' || is_player_char(game->map.map[y][x + 1]))
+		if (game->map.map[y][x + 1] == '0'
+			|| is_player_char(game->map.map[y][x + 1]))
 			return (-1);
+	return (0);
+}
+
+static int	check_space_neighbors(t_game *game, int y, int x)
+{
+	if (check_top_bottom(game, y, x) != 0)
+		return (-1);
+	if (check_left_right(game, y, x) != 0)
+		return (-1);
 	return (0);
 }
 
@@ -109,10 +146,8 @@ static int	check_enclosed_map(t_game *game)
 	return (0);
 }
 
-static void	init_player_pos(t_game *game, int y, int x, char dir)
+static void	set_player_dir(t_game *game, char dir)
 {
-	game->player.x = (double)x + 0.5;
-	game->player.y = (double)y + 0.5;
 	if (dir == 'N')
 		game->player.dir = 3 * PI / 2;
 	else if (dir == 'S')
@@ -121,6 +156,13 @@ static void	init_player_pos(t_game *game, int y, int x, char dir)
 		game->player.dir = 0;
 	else if (dir == 'W')
 		game->player.dir = PI;
+}
+
+static void	init_player_pos(t_game *game, int y, int x, char dir)
+{
+	game->player.x = (double)x + 0.5;
+	game->player.y = (double)y + 0.5;
+	set_player_dir(game, dir);
 	game->player.move_speed = 0.1;
 	game->player.rot_speed = 0.05;
 }
