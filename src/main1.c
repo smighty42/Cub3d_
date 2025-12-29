@@ -33,6 +33,14 @@ void ft_resetter(t_game *game)
     game->texture.south = NULL;
     game->texture.east = NULL;
     game->texture.west = NULL;
+    game->floor_color.r = -1;
+    game->floor_color.g = -1;
+    game->floor_color.b = -1;
+    game->floor_color.rgb = -1;
+    game->ceiling_color.r = -1;
+    game->ceiling_color.g = -1;
+    game->ceiling_color.b = -1;
+    game->ceiling_color.rgb = -1;
 }
 void init_game(t_game *game,char *file)
 {

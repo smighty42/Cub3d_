@@ -109,13 +109,41 @@ static int	set_texture(t_game *game, char *line, char **split)
 		return (-1);
 	}
 	if (ft_strncmp(line, "NO ", 3) == 0)
+	{
+		if (game->texture.north != NULL)
+		{
+			printf("Error: Duplicate NO texture definition\n");
+			return (-1);
+		}
 		game->texture.north = ft_strdup(split[1]);
+	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
+	{
+		if (game->texture.south != NULL)
+		{
+			printf("Error: Duplicate SO texture definition\n");
+			return (-1);
+		}
 		game->texture.south = ft_strdup(split[1]);
+	}
 	else if (ft_strncmp(line, "WE ", 3) == 0)
+	{
+		if (game->texture.west != NULL)
+		{
+			printf("Error: Duplicate WE texture definition\n");
+			return (-1);
+		}
 		game->texture.west = ft_strdup(split[1]);
+	}
 	else if (ft_strncmp(line, "EA ", 3) == 0)
+	{
+		if (game->texture.east != NULL)
+		{
+			printf("Error: Duplicate EA texture definition\n");
+			return (-1);
+		}
 		game->texture.east = ft_strdup(split[1]);
+	}
 	else
 		return (-1);
 	return (0);
@@ -229,9 +257,25 @@ static int	parse_color_line(t_game *game, char *line)
 		return (-1);
 	}
 	if (ft_strncmp(line, "F ", 2) == 0)
+	{
+		if (game->floor_color.rgb != -1)
+		{
+			printf("Error: Duplicate F (floor) color definition\n");
+			free_split(split);
+			return (-1);
+		}
 		result = parse_rgb_color(split[1], &game->floor_color);
+	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
+	{
+		if (game->ceiling_color.rgb != -1)
+		{
+			printf("Error: Duplicate C (ceiling) color definition\n");
+			free_split(split);
+			return (-1);
+		}
 		result = parse_rgb_color(split[1], &game->ceiling_color);
+	}
 	else
 	{
 		free_split(split);
