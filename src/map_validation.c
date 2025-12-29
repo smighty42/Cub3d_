@@ -123,6 +123,30 @@ static int	check_space_neighbors(t_game *game, int y, int x)
 	return (0);
 }
 
+static int	is_valid_neighbor(t_game *game, int y, int x)
+{
+	if (y < 0 || y >= game->map.height)
+		return (0);
+	if (x < 0 || x >= ft_strlen(game->map.map[y]))
+		return (0);
+	if (game->map.map[y][x] == ' ')
+		return (0);
+	return (1);
+}
+
+static int	check_playable_cell(t_game *game, int y, int x)
+{
+	if (!is_valid_neighbor(game, y - 1, x))
+		return (-1);
+	if (!is_valid_neighbor(game, y + 1, x))
+		return (-1);
+	if (!is_valid_neighbor(game, y, x - 1))
+		return (-1);
+	if (!is_valid_neighbor(game, y, x + 1))
+		return (-1);
+	return (0);
+}
+
 static int	check_enclosed_map(t_game *game)
 {
 	int	y;
@@ -137,6 +161,12 @@ static int	check_enclosed_map(t_game *game)
 			if (game->map.map[y][x] == ' ')
 			{
 				if (check_space_neighbors(game, y, x) != 0)
+					return (-1);
+			}
+			else if (game->map.map[y][x] == '0' 
+				|| is_player_char(game->map.map[y][x]))
+			{
+				if (check_playable_cell(game, y, x) != 0)
 					return (-1);
 			}
 			x++;
