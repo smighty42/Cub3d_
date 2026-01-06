@@ -26,6 +26,7 @@ void	ray_step(t_raycast *ray, double angle)
 		ray->side_dist_y = (ray->map_y + 1.0 - ray->ray_y) * ray->delta_dist_y;
 	}
 }
+
 void	dda_calculator(t_game *game, t_dda *dda, t_raycast *ray)
 {
 	while (dda->hit == 0)
@@ -48,6 +49,7 @@ void	dda_calculator(t_game *game, t_dda *dda, t_raycast *ray)
 			dda->hit = 1;
 	}
 }
+
 void	texture_and_calculator(t_raycast *ray, t_dda *dda)
 {
 	if (dda->side == 0)
@@ -60,14 +62,6 @@ void	texture_and_calculator(t_raycast *ray, t_dda *dda)
 	else
 		ray->wall_x = ray->ray_x + ray->distance * cos(ray->ray_angle);
 	ray->wall_x = fmod(ray->wall_x, 1.0);
-	// gerek yok buna ama şimdilik kalsın aynalama işlemi
-	/*if ((dda->side == 0 && ray->ray_angle > PI / 2 && ray->ray_angle < 3 * PI
-			/ 2) || (dda->side == 1 && (ray->ray_angle < PI
-				|| ray->ray_angle > 2 * PI)))
-	{
-		// Texture koordinatını ters çevir
-		ray->wall_x = 1.0 - ray->wall_x;
-	}*/
 }
 
 t_raycast	cast_ray(t_game *game, double angle)
@@ -89,31 +83,6 @@ t_raycast	cast_ray(t_game *game, double angle)
 	return (ray);
 }
 
-void	draw_wall_slice(t_game *game, int x, t_raycast ray)
-{
-	int	wall_height;
-	int	draw_start;
-	int	draw_end;
-	int	y;
-	int	color;
-
-	ray.distance = ray.distance * cos(ray.ray_angle - game->player.dir);
-	wall_height = (int)(WIN_HEIGHT / ray.distance);
-	draw_start = (WIN_HEIGHT - wall_height) / 2;
-	draw_end = (WIN_HEIGHT + wall_height) / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	if (draw_end >= WIN_HEIGHT)
-		draw_end = WIN_HEIGHT - 1;
-	y = draw_start;
-	while (y <= draw_end)
-	{
-		color = get_texture_color(game, ray, y, wall_height);
-		my_put_pixel(game, x, y, color);
-		y++;
-	}
-}
-
 void	perform_raycasting(t_game *game)
 {
 	int			x;
@@ -121,12 +90,14 @@ void	perform_raycasting(t_game *game)
 	double		angle_step;
 	t_raycast	ray;
 
-	angle_step = (PI / 3) / WIN_WIDTH;       // 60 derece görüş açısı
-	ray_angle = game->player.dir - (PI / 6); // -30 derece başlangıç
-	for (x = 0; x < WIN_WIDTH; x++)
+	x = 0;
+	angle_step = ((PI / 3) / WIN_WIDTH);
+	ray_angle = game->player.dir - (PI / 6);
+	while (x < WIN_WIDTH)
 	{
 		ray = cast_ray(game, ray_angle);
 		draw_wall_slice(game, x, ray);
 		ray_angle += angle_step;
+		x++;
 	}
 }

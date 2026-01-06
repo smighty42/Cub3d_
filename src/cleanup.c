@@ -47,28 +47,23 @@ void	cleanup_map(t_game *game)
 int	close_window(t_game *game)
 {
 	cleanup_textures(game);
-
 	cleanup_map(game);
-
 	if (game->image.new_image)
 	{
 		mlx_destroy_image(game->mlx, game->image.new_image);
 		game->image.new_image = NULL;
 	}
-
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
 		game->win = NULL;
 	}
-
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 		game->mlx = NULL;
 	}
-
 	exit(0);
 	return (0);
 }
