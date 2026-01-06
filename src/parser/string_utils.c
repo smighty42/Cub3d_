@@ -51,19 +51,11 @@ static char	*extract_word(char const *s, char c, int *index)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+static char	**fill_result(char const *s, char c, char **result, int words)
 {
-	char	**result;
-	int		words;
-	int		i;
-	int		index;
+	int	i;
+	int	index;
 
-	if (!s)
-		return (NULL);
-	words = count_words(s, c);
-	result = malloc(sizeof(char *) * (words + 1));
-	if (!result)
-		return (NULL);
 	i = 0;
 	index = 0;
 	while (i < words)
@@ -80,6 +72,20 @@ char	**ft_split(char const *s, char c)
 	}
 	result[i] = NULL;
 	return (result);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**result;
+	int		words;
+
+	if (!s)
+		return (NULL);
+	words = count_words(s, c);
+	result = malloc(sizeof(char *) * (words + 1));
+	if (!result)
+		return (NULL);
+	return (fill_result(s, c, result, words));
 }
 
 static int	is_in_set(char c, char const *set)

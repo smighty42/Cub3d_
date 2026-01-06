@@ -5,17 +5,17 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = \
 	src/main1.c \
-	src/parser.c \
-	src/map_validation.c \
+	src/parser/parser.c \
+	src/parser/map_validation.c \
 	src/background.c \
 	src/player.c \
 	src/ray_casting.c \
 	src/controller.c \
 	src/draw_wall.c \
-	src/utils.c \
-	src/string_utils.c \
-	src/get_next_line.c \
-	src/texture_loader.c \
+	src/parser/utils.c \
+	src/parser/string_utils.c \
+	src/parser/get_next_line.c \
+	src/parser/texture_loader.c \
 	src/update_player_position.c \
 	src/cleanup.c
 
