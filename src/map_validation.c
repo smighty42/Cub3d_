@@ -1,11 +1,11 @@
 #include "../cub3d.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 static int	is_valid_char(char c)
 {
-	return (c == '0' || c == '1' || c == ' ' ||
-		c == 'N' || c == 'S' || c == 'E' || c == 'W');
+	return (c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W');
 }
 
 static int	is_player_char(char c)
@@ -91,12 +91,12 @@ static int	check_border_walls(t_game *game)
 static int	check_top_bottom(t_game *game, int y, int x)
 {
 	if (y > 0 && x < ft_strlen(game->map.map[y - 1]))
-		if (game->map.map[y - 1][x] == '0'
-			|| is_player_char(game->map.map[y - 1][x]))
+		if (game->map.map[y - 1][x] == '0' || is_player_char(game->map.map[y
+				- 1][x]))
 			return (-1);
 	if (y < game->map.height - 1 && x < ft_strlen(game->map.map[y + 1]))
-		if (game->map.map[y + 1][x] == '0'
-			|| is_player_char(game->map.map[y + 1][x]))
+		if (game->map.map[y + 1][x] == '0' || is_player_char(game->map.map[y
+				+ 1][x]))
 			return (-1);
 	return (0);
 }
@@ -104,12 +104,12 @@ static int	check_top_bottom(t_game *game, int y, int x)
 static int	check_left_right(t_game *game, int y, int x)
 {
 	if (x > 0)
-		if (game->map.map[y][x - 1] == '0'
-			|| is_player_char(game->map.map[y][x - 1]))
+		if (game->map.map[y][x - 1] == '0' || is_player_char(game->map.map[y][x
+				- 1]))
 			return (-1);
 	if (x < ft_strlen(game->map.map[y]) - 1)
-		if (game->map.map[y][x + 1] == '0'
-			|| is_player_char(game->map.map[y][x + 1]))
+		if (game->map.map[y][x + 1] == '0' || is_player_char(game->map.map[y][x
+				+ 1]))
 			return (-1);
 	return (0);
 }
@@ -163,7 +163,7 @@ static int	check_enclosed_map(t_game *game)
 				if (check_space_neighbors(game, y, x) != 0)
 					return (-1);
 			}
-			else if (game->map.map[y][x] == '0' 
+			else if (game->map.map[y][x] == '0'
 				|| is_player_char(game->map.map[y][x]))
 			{
 				if (check_playable_cell(game, y, x) != 0)

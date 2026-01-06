@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "../cub3d.h"
 #include "../mlx/mlx.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void	load_textures(t_game *game)
 {

@@ -1,7 +1,7 @@
 #include "../cub3d.h"
 #include <fcntl.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 static int	count_lines(char *filename)
@@ -65,7 +65,7 @@ static char	**read_file_lines(char *filename)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		lines[i] = ft_strtrim(line, "\n");
 		free(line);
 		i++;
@@ -208,7 +208,7 @@ static int	parse_rgb(char **rgb, t_color *color)
 		count++;
 	if (count != 3)
 		return (-1);
-	if (!is_valid_number(rgb[0]) || !is_valid_number(rgb[1]) 
+	if (!is_valid_number(rgb[0]) || !is_valid_number(rgb[1])
 		|| !is_valid_number(rgb[2]))
 		return (-1);
 	r = ft_atoi(rgb[0]);
@@ -459,7 +459,8 @@ void	parse_cub_file(t_game *game, char *filename)
 	if (tex_count == -1 || tex_count != 6)
 	{
 		if (tex_count != -1)
-			printf("Error: Missing texture or color info (found %d/6)\n", tex_count);
+			printf("Error: Missing texture or color info (found %d/6)\n",
+				tex_count);
 		free_split(lines);
 		return ;
 	}

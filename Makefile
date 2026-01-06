@@ -15,7 +15,9 @@ SRCS = \
 	src/utils.c \
 	src/string_utils.c \
 	src/get_next_line.c \
-	src/texture_loader.c
+	src/texture_loader.c \
+	src/update_player_position.c \
+	src/cleanup.c
 
 
 OBJS = $(SRCS:.c=.o)
