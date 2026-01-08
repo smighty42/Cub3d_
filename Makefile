@@ -1,5 +1,7 @@
 NAME = cub3D
 
+MAKEFLAGS 			+= --no-print-directory
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -34,15 +36,15 @@ INCLUDES = -I$(MLX_DIR)
 all: $(NAME)
 
 $(NAME): $(SRCS)
-	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(SRCS) $(SRCS_GNL) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME) -L/usr/X11/lib
+	@make -C $(MLX_DIR)
+	@$(CC) $(CFLAGS) $(SRCS) $(SRCS_GNL) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME) -L/usr/X11/lib
 
 clean:
-	make -C $(MLX_DIR) clean
-	rm -f $(OBJS)
+	@make -C $(MLX_DIR) clean
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

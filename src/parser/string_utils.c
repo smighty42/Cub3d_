@@ -6,7 +6,7 @@
 /*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 14:08:53 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/08 14:08:55 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:20:41 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,6 @@ char	**ft_split_gc(char const *s, char c, t_gc **gc)
 	if (!result)
 		return (NULL);
 	return (fill_result(s, c, result, words, gc));
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**result;
-	int		words;
-
-	if (!s)
-		return (NULL);
-	words = count_words(s, c);
-	result = malloc(sizeof(char *) * (words + 1));
-	if (!result)
-		return (NULL);
-	return (fill_result(s, c, result, words, NULL));
 }
 
 static int	is_in_set(char c, char const *set)

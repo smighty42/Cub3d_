@@ -104,15 +104,14 @@ static int	set_texture(t_game *game, char *line, char **split)
 {
 	if (check_file_exists(split[1]) != 0)
 	{
-		printf("Error: Texture file not found: %s\n", split[1]);
+		free_exit(game, "Texture file not found.\n");
 		return (-1);
 	}
 	if (ft_strncmp(line, "NO ", 3) == 0)
 	{
 		if (game->texture.north != NULL)
 		{
-			printf("Error: Duplicate NO texture definition\n");
-			return (-1);
+			free_exit(game, "Duplicate NO texture definition.\n");
 		}
 		game->texture.north = ft_strdup_gc(split[1], &game->gc);
 	}
@@ -120,8 +119,7 @@ static int	set_texture(t_game *game, char *line, char **split)
 	{
 		if (game->texture.south != NULL)
 		{
-			printf("Error: Duplicate SO texture definition\n");
-			return (-1);
+			free_exit(game, "Duplicate SO texture definition.\n");
 		}
 		game->texture.south = ft_strdup_gc(split[1], &game->gc);
 	}
@@ -129,8 +127,7 @@ static int	set_texture(t_game *game, char *line, char **split)
 	{
 		if (game->texture.west != NULL)
 		{
-			printf("Error: Duplicate WE texture definition\n");
-			return (-1);
+			free_exit(game, "Duplicate WE texture definition.\n");
 		}
 		game->texture.west = ft_strdup_gc(split[1], &game->gc);
 	}
@@ -138,8 +135,7 @@ static int	set_texture(t_game *game, char *line, char **split)
 	{
 		if (game->texture.east != NULL)
 		{
-			printf("Error: Duplicate EA texture definition\n");
-			return (-1);
+			free_exit(game, "Duplicate EA texture definition.\n");
 		}
 		game->texture.east = ft_strdup_gc(split[1], &game->gc);
 	}
@@ -197,7 +193,11 @@ static int	parse_rgb(char **rgb, t_color *color)
 
 	count = 0;
 	while (rgb && rgb[count])
+	{
+		if (!rgb[count][0])
+			return (-1);
 		count++;
+	}
 	if (count != 3)
 		return (-1);
 	if (!is_valid_number(rgb[0]) || !is_valid_number(rgb[1])
@@ -215,11 +215,39 @@ static int	parse_rgb(char **rgb, t_color *color)
 	return (0);
 }
 
+static int	is_valid_rgb_format(char *str)
+{
+	int	i;
+	int	comma_count;
+
+	if (!str || !str[0])
+		return (0);
+	if (str[0] == ',')
+		return (0);
+	i = 0;
+	comma_count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+		{
+			comma_count++;
+			if (str[i + 1] == ',' || str[i + 1] == '\0')
+				return (0);
+		}
+		i++;
+	}
+	if (comma_count != 2)
+		return (0);
+	return (1);
+}
+
 static int	parse_rgb_color(char *rgb_str, t_color *color, t_gc **gc)
 {
 	char	**rgb;
 	int		result;
 
+	if (!is_valid_rgb_format(rgb_str))
+		return (-1);
 	rgb = ft_split_gc(rgb_str, ',', gc);
 	result = parse_rgb(rgb, color);
 	return (result);
@@ -245,8 +273,7 @@ static int	parse_color_line(t_game *game, char *line)
 	{
 		if (game->floor_color.rgb != -1)
 		{
-			printf("Error: Duplicate F (floor) color definition\n");
-			return (-1);
+			free_exit(game, "Duplicate F (floor) color definition.\n");
 		}
 		result = parse_rgb_color(split[1], &game->floor_color, &game->gc);
 	}
@@ -254,8 +281,7 @@ static int	parse_color_line(t_game *game, char *line)
 	{
 		if (game->ceiling_color.rgb != -1)
 		{
-			printf("Error: Duplicate C (ceiling) color definition\n");
-			return (-1);
+			free_exit(game, "Duplicate C (ceiling) color definition.\n");
 		}
 		result = parse_rgb_color(split[1], &game->ceiling_color, &game->gc);
 	}
@@ -385,7 +411,7 @@ static int	parse_elements(t_game *game, char **lines)
 		{
 			if (parse_texture_line(game, lines[i]) != 0)
 			{
-				printf("Error: Invalid texture line: %s\n", lines[i]);
+				free_exit(game, "Invalid texture line.\n");
 				return (-1);
 			}
 			tex_count++;
@@ -394,7 +420,7 @@ static int	parse_elements(t_game *game, char **lines)
 		{
 			if (parse_color_line(game, lines[i]) != 0)
 			{
-				printf("Error: Invalid color line: %s\n", lines[i]);
+				free_exit(game, "Invalid color line.%s\n");
 				return (-1);
 			}
 			tex_count++;
@@ -424,32 +450,28 @@ void	parse_cub_file(t_game *game, char *filename)
 
 	if (check_file_ext(filename) != 0)
 	{
-		printf("Error: File must have .cub extension\n");
-		return ;
+		free_exit(game, "File must have .cub extension.\n");
 	}
 	lines = read_file_lines(filename, &game->gc);
 	if (!lines)
 	{
-		printf("Error: Failed to read file\n");
-		return ;
+		free_exit(game, "Failed to read file\n");
 	}
 	tex_count = parse_elements(game, lines);
 	if (tex_count == -1 || tex_count != 6)
 	{
 		if (tex_count != -1)
-			printf("Error: Missing texture or color info (found %d/6)\n",
-				tex_count);
-		return ;
+			free_exit(game, "Missing texture or color info.\n");
 	}
 	map_start = find_map_start(lines);
 	if (map_start == -1)
 	{
-		printf("Error: No map found\n");
+		free_exit(game, "No map found.\n");
 		return ;
 	}
 	if (parse_map_data(game, lines, map_start) != 0)
 	{
-		printf("Error: Map parsing failed\n");
+		free_exit(game, "Map parsing failed.\n");
 		return ;
 	}
 }

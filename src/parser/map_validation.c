@@ -226,23 +226,29 @@ int	validate_map(t_game *game)
 {
 	if (check_map_chars(game) != 0)
 	{
-		printf("Error: Invalid characters in map\n");
+		free_exit(game, "Invalid characters in map\n");
 		return (-1);
 	}
 	if (check_border_walls(game) != 0)
 	{
-		printf("Error: Map borders not enclosed\n");
+		free_exit(game, "Map borders not enclosed\n");
 		return (-1);
 	}
 	if (check_enclosed_map(game) != 0)
 	{
-		printf("Error: Map not properly enclosed\n");
+		free_exit(game, "Map not properly enclosed\n");
 		return (-1);
 	}
 	if (find_and_init_player(game) != 0)
 	{
-		printf("Error: Player position not found\n");
+		free_exit(game, "Player position not found\n");
 		return (-1);
 	}
 	return (0);
+}
+void free_exit(t_game *game, const char *message)
+{
+	printf("Error: %s\n", message);
+	gc_free_all(&game->gc);
+	exit(EXIT_FAILURE);
 }

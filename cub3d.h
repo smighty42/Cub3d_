@@ -14,7 +14,7 @@
 # define WIN_HEIGHT 720
 
 # define TEX_SIZE 64
-# include <stddef.h> 
+# include <stddef.h>
 typedef struct s_color
 {
 	int			r;
@@ -122,7 +122,7 @@ typedef struct s_game
 	int			width;
 	int			height;
 
-	t_gc *gc;
+	t_gc		*gc;
 }				t_game;
 
 typedef struct s_texture_calc
@@ -136,8 +136,6 @@ typedef struct s_texture_calc
 	int			draw_start;
 }				t_texture_calc;
 
-
-
 void			*gc_malloc(t_gc **gc, size_t size);
 void			gc_free_all(t_gc **gc);
 void			gc_add(t_gc **gc, void *ptr);
@@ -149,12 +147,12 @@ void			parse_cub_file(t_game *game, char *filename);
 int				validate_map(t_game *game);
 int				find_and_init_player(t_game *game);
 void			free_split(char **split);
+void			free_exit(t_game *game, const char *message);
 int				ft_strlen(const char *s);
 int				ft_strncmp(const char *s1, const char *s2, int n);
 char			*ft_strdup(const char *s1);
 char			*ft_strjoin(const char *s1, const char *s2);
 int				ft_atoi(const char *str);
-char			**ft_split(char const *s, char c);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*get_next_line(int fd);
 void			free_gnl_storage(void);
