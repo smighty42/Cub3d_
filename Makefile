@@ -1,6 +1,6 @@
-NAME = cub3d
+NAME = cub3D
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = \
@@ -14,11 +14,13 @@ SRCS = \
 	src/draw_wall.c \
 	src/parser/utils.c \
 	src/parser/string_utils.c \
-	src/parser/get_next_line.c \
 	src/parser/texture_loader.c \
 	src/update_player_position.c \
 	src/cleanup.c
 
+SRCS_GNL = \
+	get_next_line/get_next_line.c \
+ 	get_next_line/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -30,7 +32,7 @@ all: $(NAME)
 
 $(NAME): $(SRCS)
 	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(SRCS) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME) -L/usr/X11/lib
+	$(CC) $(CFLAGS) $(SRCS) $(SRCS_GNL) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME) -L/usr/X11/lib
 
 clean:
 	make -C $(MLX_DIR) clean
