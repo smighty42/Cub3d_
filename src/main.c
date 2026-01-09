@@ -6,7 +6,7 @@
 /*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:02 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/09 14:33:10 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:24:09 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,22 @@ void	init(t_game *game)
 	game->height = WIN_HEIGHT;
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		write(2, "Error: MLX initialization failed\n", 34);
+		free_exit(game, "MLX initialization failed.");
 	game->win = mlx_new_window(game->mlx, game->width, game->height, "cub3d");
 	if (!game->win)
-		write(2, "Error: Window creation failed\n", 31);
+		free_exit(game, "Window creation failed.");
 }
 
 void	put_celling_floor(t_game *game)
 {
 	game->image.new_image = mlx_new_image(game->mlx, game->width, game->height);
+	if (!game->image.new_image)
+		free_exit(game, "Image creation failed.");
 	game->image.add = mlx_get_data_addr(game->image.new_image,
 			&game->image.pixel_bit, &game->image.line_length_byte,
 			&game->image.endian);
+	if(!game->image.add)
+		free_exit(game, "Image address failed.");
 }
 
 void	ft_resetter(t_game *game)
@@ -65,15 +69,8 @@ void	init_game(t_game *game, char *file)
 	parse_cub_file(game, file);
 	if (!game->map.map || !game->texture.north || !game->texture.south
 		|| !game->texture.east || !game->texture.west)
-	{
-		write(2, "Error: Parsing failed\n", 23);
-		exit(1);
-	}
-	if (validate_map(game) != 0)
-	{
-		write(2, "Error: Map validation failed\n", 30);
-		exit(1);
-	}
+		free_exit(game,"Parsing failed");
+	validate_map(game);
 	init(game);
 	put_celling_floor(game);
 	load_textures(game);

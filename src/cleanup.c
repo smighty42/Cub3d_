@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:10:16 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/08 12:38:15 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/09 16:18:04 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,9 @@ void	cleanup_textures(t_game *game)
 	}
 }
 
-void	cleanup_map(t_game *game)
-{
-	(void)game;
-}
-
 int	close_window(t_game *game)
 {
 	cleanup_textures(game);
-	cleanup_map(game);
 	if (game->image.new_image)
 	{
 		mlx_destroy_image(game->mlx, game->image.new_image);
