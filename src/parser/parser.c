@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int	count_lines(char *filename)
+static int	count_lines(char *filename, t_gc **gc)
 {
 	int		fd;
 	char	*line;
@@ -18,11 +18,10 @@ static int	count_lines(char *filename)
 		return (-1);
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, gc);
 		if (!line)
 			break ;
 		count++;
-		free(line);
 	}
 	close(fd);
 	return (count);
@@ -33,7 +32,7 @@ static char	**alloc_lines(char *filename, int *line_count, t_gc **gc)
 	char	**lines;
 	int		fd;
 
-	*line_count = count_lines(filename);
+	*line_count = count_lines(filename, gc);
 	if (*line_count <= 0)
 		return (NULL);
 	lines = gc_malloc(gc, sizeof(char *) * (*line_count + 1));
@@ -62,11 +61,10 @@ static char	**read_file_lines(char *filename, t_gc **gc)
 	i = 0;
 	while (i < line_count)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, gc);
 		if (!line)
 			break ;
 		lines[i] = ft_strtrim_gc(line, "\n", gc);
-		free(line);
 		i++;
 	}
 	lines[i] = NULL;

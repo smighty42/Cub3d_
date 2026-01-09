@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/09 13:47:31 by itaskira          #+#    #+#             */
+/*   Updated: 2026/01/09 13:48:03 by itaskira         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
 
@@ -32,7 +42,7 @@ char	*ft_strchr_gnl(char *line, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin_gnl(char *line, char *buffer)
+char	*ft_strjoin_gnl(char *line, char *buffer, t_gc **gc)
 {
 	char	*str;
 	int		i;
@@ -40,16 +50,16 @@ char	*ft_strjoin_gnl(char *line, char *buffer)
 
 	if (!line)
 	{
-		line = malloc(1);
+		line = gc_malloc(gc, 1);
 		if (!line)
 			return (NULL);
 		line[0] = '\0';
 	}
 	if (!buffer)
 		return (NULL);
-	str = malloc(sizeof(char) * (ft_strlen_gnl(line) + ft_strlen_gnl(buffer) + 1));
+	str = gc_malloc(gc, sizeof(char) * (ft_strlen_gnl(line) + ft_strlen_gnl(buffer) + 1));
 	if (!str)
-		return (free(line), NULL);
+		return (NULL);
 	i = -1;
 	while (line[++i])
 		str[i] = line[i];
@@ -57,5 +67,5 @@ char	*ft_strjoin_gnl(char *line, char *buffer)
 	while (buffer[++j])
 		str[i + j] = buffer[j];
 	str[i + j] = '\0';
-	return (free(line), str);
+	return (str);
 }
