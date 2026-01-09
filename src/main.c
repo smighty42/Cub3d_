@@ -70,13 +70,7 @@ void	init_game(t_game *game, char *file)
 	if (!game->map.map || !game->texture.north || !game->texture.south
 		|| !game->texture.east || !game->texture.west)
 	{
-		write(2, "Error: Parsing failed\n", 23);
-		exit(1);
-	}
-	if (validate_map(game) != 0)
-	{
-		write(2, "Error: Map validation failed\n", 30);
-		exit(1);
+		free_exit(game,"Parsing failed");
 	}
 	init(game);
 	put_celling_floor(game);
