@@ -1,5 +1,5 @@
 #include "../cub3d.h"
-#include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 static int	is_valid_char(char c)
@@ -248,7 +248,9 @@ int	validate_map(t_game *game)
 }
 void free_exit(t_game *game, const char *message)
 {
-	printf("Error: %s\n", message);
+	write(2, "Error: ", 7);
+	write(2, message, ft_strlen(message));
+	write(2, "\n", 1);
 	gc_free_all(&game->gc);
 	exit(EXIT_FAILURE);
 }

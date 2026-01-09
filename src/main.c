@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:02 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/08 13:43:39 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/09 14:33:10 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../mlx/mlx.h"
-#include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 void	init(t_game *game)
@@ -21,10 +21,10 @@ void	init(t_game *game)
 	game->height = WIN_HEIGHT;
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		printf("error mlx");
+		write(2, "Error: MLX initialization failed\n", 34);
 	game->win = mlx_new_window(game->mlx, game->width, game->height, "cub3d");
 	if (!game->win)
-		printf("error win");
+		write(2, "Error: Window creation failed\n", 31);
 }
 
 void	put_celling_floor(t_game *game)
@@ -66,12 +66,12 @@ void	init_game(t_game *game, char *file)
 	if (!game->map.map || !game->texture.north || !game->texture.south
 		|| !game->texture.east || !game->texture.west)
 	{
-		printf("Error: Parsing failed\n");
+		write(2, "Error: Parsing failed\n", 23);
 		exit(1);
 	}
 	if (validate_map(game) != 0)
 	{
-		printf("Error: Map validation failed\n");
+		write(2, "Error: Map validation failed\n", 30);
 		exit(1);
 	}
 	init(game);
@@ -85,7 +85,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		printf("Usage: ./cub3D <map.cub>\n");
+		write(2, "Usage: ./cub3D <map.cub>\n", 26);
 		return (1);
 	}
 	init_game(&game, av[1]);
