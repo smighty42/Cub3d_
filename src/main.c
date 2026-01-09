@@ -21,18 +21,22 @@ void	init(t_game *game)
 	game->height = WIN_HEIGHT;
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		write(2, "Error: MLX initialization failed\n", 34);
+		free_exit(game,"mlx");
 	game->win = mlx_new_window(game->mlx, game->width, game->height, "cub3d");
 	if (!game->win)
-		write(2, "Error: Window creation failed\n", 31);
+		free_exit(game,"win");
 }
 
 void	put_celling_floor(t_game *game)
 {
 	game->image.new_image = mlx_new_image(game->mlx, game->width, game->height);
+	if(!game->image.new_image)
+		free_exit(game,"new_image");
 	game->image.add = mlx_get_data_addr(game->image.new_image,
 			&game->image.pixel_bit, &game->image.line_length_byte,
 			&game->image.endian);
+	if(!game->image.add)
+		free_exit(game,"address");
 }
 
 void	ft_resetter(t_game *game)

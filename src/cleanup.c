@@ -39,15 +39,10 @@ void	cleanup_textures(t_game *game)
 	}
 }
 
-void	cleanup_map(t_game *game)
-{
-	(void)game;
-}
 
 int	close_window(t_game *game)
 {
 	cleanup_textures(game);
-	cleanup_map(game);
 	if (game->image.new_image)
 	{
 		mlx_destroy_image(game->mlx, game->image.new_image);
