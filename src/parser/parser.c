@@ -402,7 +402,7 @@ static int	parse_elements(t_game *game, char **lines)
 
 	i = 0;
 	tex_count = 0;
-	while (lines[i] && tex_count < 6)
+	while (lines[i])
 	{
 		type = is_texture_or_color(lines[i]);
 		if (type == 1)
@@ -423,6 +423,8 @@ static int	parse_elements(t_game *game, char **lines)
 			}
 			tex_count++;
 		}
+		else if (lines[i][0] == '1' || lines[i][0] == '0')
+			break ;
 		i++;
 	}
 	return (tex_count);
