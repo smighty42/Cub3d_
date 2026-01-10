@@ -14,6 +14,7 @@
 # define WIN_HEIGHT 720
 
 # define TEX_SIZE 64
+#define WALL_BUFFER 0.3
 # include <stddef.h>
 typedef struct s_color
 {
@@ -34,8 +35,6 @@ typedef struct s_textures
 	void		*south_img;
 	void		*east_img;
 	void		*west_img;
-	int			tex_width;
-	int			tex_height;
 }				t_textures;
 
 typedef struct s_map
@@ -172,5 +171,6 @@ void			cleanup_textures(t_game *game);
 void			load_textures(t_game *game);
 int				get_texture_color(t_game *game, t_raycast ray, int y,
 					int wall_height);
+int	is_valid_position(t_game *game, double x, double y);
 void			ft_resetter(t_game *game);
 #endif

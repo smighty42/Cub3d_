@@ -6,7 +6,7 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:10:28 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/08 12:39:06 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/10 14:54:44 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	update_key_w(t_game *game, double new_x, double new_y)
 			* game->player.move_speed;
 		new_y = game->player.y + sin(game->player.dir)
 			* game->player.move_speed;
-		if (game->map.map[(int)new_y][(int)new_x] != '1')
+		if (is_valid_position(game, new_x, new_y))
 		{
 			game->player.x = new_x;
 			game->player.y = new_y;
@@ -39,11 +39,12 @@ void	update_key_s(t_game *game, double new_x, double new_y)
 			* game->player.move_speed;
 		new_y = game->player.y - sin(game->player.dir)
 			* game->player.move_speed;
-		if (game->map.map[(int)new_y][(int)new_x] != '1')
+		if (is_valid_position(game, new_x, new_y))
 		{
 			game->player.x = new_x;
 			game->player.y = new_y;
 		}
+
 	}
 }
 
@@ -55,7 +56,7 @@ void	update_key_a(t_game *game, double new_x, double new_y)
 			* game->player.move_speed;
 		new_y = game->player.y + sin(game->player.dir - PI / 2)
 			* game->player.move_speed;
-		if (game->map.map[(int)new_y][(int)new_x] != '1')
+		if (is_valid_position(game, new_x, new_y))
 		{
 			game->player.x = new_x;
 			game->player.y = new_y;
@@ -71,7 +72,7 @@ void	update_key_d(t_game *game, double new_x, double new_y)
 			* game->player.move_speed;
 		new_y = game->player.y + sin(game->player.dir + PI / 2)
 			* game->player.move_speed;
-		if (game->map.map[(int)new_y][(int)new_x] != '1')
+		if (is_valid_position(game, new_x, new_y))
 		{
 			game->player.x = new_x;
 			game->player.y = new_y;
