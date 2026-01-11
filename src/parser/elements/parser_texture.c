@@ -6,7 +6,7 @@
 /*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:07 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 12:58:36 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 14:57:13 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	set_texture(t_game *game, char *line, char **split)
 {
 	if (check_file_exists(split[1]) != 0)
 	{
-		free_exit(game, "Texture file not found.\n");
+		free_exit(game, "Texture file not found");
 		return (-1);
 	}
 	if (assign_texture(game, line, split[1]) != 0)
 	{
-		free_exit(game, "Duplicate texture definition.\n");
+		free_exit(game, "Duplicate texture definition");
 		return (-1);
 	}
 	return (0);

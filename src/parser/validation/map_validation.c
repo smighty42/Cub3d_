@@ -6,7 +6,7 @@
 /*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:34:24 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 12:58:36 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 14:57:08 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	free_exit(t_game *game, const char *message)
 int	validate_map(t_game *game)
 {
 	if (check_map_chars(game) != 0)
-		free_exit(game, "Invalid characters in map\n");
+		free_exit(game, "Invalid characters in map");
 	if (check_border_walls(game) != 0)
-		free_exit(game, "Map borders not enclosed\n");
+		free_exit(game, "Map borders not enclosed");
 	if (check_enclosed_map(game) != 0)
-		free_exit(game, "Map not properly enclosed\n");
+		free_exit(game, "Map not properly enclosed");
 	if (find_and_init_player(game) != 0)
-		free_exit(game, "Player position not found\n");
+		free_exit(game, "Player position not found");
 	return (0);
 }

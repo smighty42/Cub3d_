@@ -6,7 +6,7 @@
 /*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:00 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 12:58:36 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 14:57:19 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ static int	assign_color(t_game *game, char *line, char **split)
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
 		if (game->floor_color.rgb != -1)
-			free_exit(game, "Duplicate F (floor) color definition.\n");
+			free_exit(game, "Duplicate F (floor) color definition");
 		result = parse_rgb_color(split[1], &game->floor_color, &game->gc);
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
 	{
 		if (game->ceiling_color.rgb != -1)
-			free_exit(game, "Duplicate C (ceiling) color definition.\n");
+			free_exit(game, "Duplicate C (ceiling) color definition");
 		result = parse_rgb_color(split[1], &game->ceiling_color, &game->gc);
 	}
 	return (result);

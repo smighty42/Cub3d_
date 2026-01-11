@@ -6,7 +6,7 @@
 /*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:06 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 12:58:36 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 14:57:15 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	proc_elem(t_game *game, char *line, int *type)
 	{
 		if (parse_texture_line(game, line) != 0)
 		{
-			free_exit(game, "Invalid texture line.\n");
+			free_exit(game, "Invalid texture line");
 			return (-1);
 		}
 	}
@@ -85,7 +85,7 @@ static int	proc_elem(t_game *game, char *line, int *type)
 	{
 		if (parse_color_line(game, line) != 0)
 		{
-			free_exit(game, "Invalid color line.%s\n");
+			free_exit(game, "Invalid color line");
 			return (-1);
 		}
 	}

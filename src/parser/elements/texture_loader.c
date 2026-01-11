@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_loader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:47 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 13:11:24 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/11 14:50:51 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
