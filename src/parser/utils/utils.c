@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:30 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 13:09:47 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:41:16 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parser.h"
-#include <stdlib.h>
 
 int	ft_strlen(const char *s)
 {

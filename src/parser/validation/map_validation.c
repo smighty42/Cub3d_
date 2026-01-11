@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:34:24 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 14:57:08 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:39:58 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:26 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 13:09:18 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:41:00 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parser.h"
-#include <stdlib.h>
 
 char	*ft_strjoin_gc(char const *s1, char const *s2, t_gc **gc)
 {

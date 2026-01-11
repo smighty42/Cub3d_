@@ -6,13 +6,11 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:14 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/06 15:11:15 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/11 15:38:57 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
 #include "../cub3d.h"
-#include <stdio.h>
 
 void	my_put_pixel(t_game *game, int x, int y, int color)
 {
@@ -62,6 +60,8 @@ void	mlx_put_color(t_game *game)
 		}
 		y++;
 	}
+	x = 0;
+	y = game->height / 2;
 	mlx_put_color2(game, x, y);
 }
 

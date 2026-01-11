@@ -6,14 +6,12 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:08 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/06 15:11:09 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/11 15:23:24 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../mlx/mlx.h"
-#include <math.h>
-#include <stdlib.h>
 
 int	key_press(int keycode, t_game *game)
 {

@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   texture_loader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:47 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 14:50:51 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:42:54 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../cub3d.h"
 #include "../../../mlx/mlx.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 void	load_textures(t_game *game)
 {

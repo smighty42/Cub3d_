@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_neighbors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:30:42 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 12:58:36 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:40:20 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parser.h"
-#include <stdio.h>
 
 static int	check_top_bottom(t_game *game, int y, int x)
 {

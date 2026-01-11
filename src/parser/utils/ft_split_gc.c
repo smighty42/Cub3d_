@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_gc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:55:43 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 12:46:50 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:42:30 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parser.h"
-#include <stdlib.h>
 
 static size_t	ft_count_word(const char *s, char c)
 {
@@ -26,7 +25,6 @@ static size_t	ft_count_word(const char *s, char c)
 	}
 	return (count);
 }
-
 
 static char	*ft_nextword(const char **s, char c, t_gc **gc)
 {
