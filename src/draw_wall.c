@@ -6,14 +6,13 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:05 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/06 15:11:06 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/11 15:23:26 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../mlx/mlx.h"
 #include <math.h>
-#include <stdio.h>
 
 void	*get_texture_img(t_game *game, t_raycast ray)
 {

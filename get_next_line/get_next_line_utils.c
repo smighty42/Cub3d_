@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 13:47:31 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/09 13:48:03 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:08:07 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	*ft_strjoin_gnl(char *line, char *buffer, t_gc **gc)
 	}
 	if (!buffer)
 		return (NULL);
-	str = gc_malloc(gc, sizeof(char) * (ft_strlen_gnl(line) + ft_strlen_gnl(buffer) + 1));
+	str = gc_malloc(gc, sizeof(char) * (ft_strlen_gnl(line)
+				+ ft_strlen_gnl(buffer) + 1));
 	if (!str)
 		return (NULL);
 	i = -1;

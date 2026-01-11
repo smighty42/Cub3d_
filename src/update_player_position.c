@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_position.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:10:28 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 12:53:45 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:18:23 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include "../mlx/mlx.h"
 #include <math.h>
-#include <stdlib.h>
 
 void	update_key_w(t_game *game, double new_x, double new_y)
 {

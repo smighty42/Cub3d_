@@ -3,30 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:02 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 14:50:47 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:19:43 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "../mlx/mlx.h"
 #include <unistd.h>
-#include <stdlib.h>
-void	clean(t_game *game)
-{
-	cleanup_textures(game);
-	if (game->image.new_image)
-		mlx_destroy_image(game->mlx, game->image.new_image);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
-}
 
 void	init(t_game *game)
 {
@@ -54,7 +40,7 @@ void	put_celling_floor(t_game *game)
 	game->image.add = mlx_get_data_addr(game->image.new_image,
 			&game->image.pixel_bit, &game->image.line_length_byte,
 			&game->image.endian);
-	if(!game->image.add)
+	if (!game->image.add)
 	{
 		clean(game);
 		free_exit(game, "Image address failed.");
