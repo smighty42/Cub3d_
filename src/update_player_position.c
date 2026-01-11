@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_position.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:10:28 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/10 14:54:44 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/11 12:53:45 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	update_key_s(t_game *game, double new_x, double new_y)
 			game->player.x = new_x;
 			game->player.y = new_y;
 		}
-
 	}
 }
 

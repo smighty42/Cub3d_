@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:02 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/10 14:32:14 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/11 12:54:56 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	put_celling_floor(t_game *game)
 	game->image.add = mlx_get_data_addr(game->image.new_image,
 			&game->image.pixel_bit, &game->image.line_length_byte,
 			&game->image.endian);
-	if(!game->image.add)
+	if (!game->image.add)
 		free_exit(game, "Image address failed.");
 }
 
@@ -69,7 +69,7 @@ void	init_game(t_game *game, char *file)
 	parse_cub_file(game, file);
 	if (!game->map.map || !game->texture.north || !game->texture.south
 		|| !game->texture.east || !game->texture.west)
-		free_exit(game,"Parsing failed");
+		free_exit(game, "Parsing failed");
 	validate_map(game);
 	init(game);
 	put_celling_floor(game);
