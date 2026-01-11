@@ -6,7 +6,7 @@
 /*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:02 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 12:54:56 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 13:16:24 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "../mlx/mlx.h"
 #include <unistd.h>
 #include <stdlib.h>
+void	clean(t_game *game)
+{
+	cleanup_textures(game);
+	if (game->image.new_image)
+		mlx_destroy_image(game->mlx, game->image.new_image);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+}
 
 void	init(t_game *game)
 {
@@ -24,34 +37,33 @@ void	init(t_game *game)
 		free_exit(game, "MLX initialization failed.");
 	game->win = mlx_new_window(game->mlx, game->width, game->height, "cub3d");
 	if (!game->win)
+	{
+		clean(game);
 		free_exit(game, "Window creation failed.");
+	}
 }
 
 void	put_celling_floor(t_game *game)
 {
 	game->image.new_image = mlx_new_image(game->mlx, game->width, game->height);
 	if (!game->image.new_image)
+	{
+		clean(game);
 		free_exit(game, "Image creation failed.");
+	}
 	game->image.add = mlx_get_data_addr(game->image.new_image,
 			&game->image.pixel_bit, &game->image.line_length_byte,
 			&game->image.endian);
-	if (!game->image.add)
+	if(!game->image.add)
+	{
+		clean(game);
 		free_exit(game, "Image address failed.");
+	}
 }
 
 void	ft_resetter(t_game *game)
 {
-	game->keys.w = 0;
-	game->keys.s = 0;
-	game->keys.a = 0;
-	game->keys.d = 0;
-	game->keys.left = 0;
-	game->keys.right = 0;
-	game->map.map = NULL;
-	game->texture.north = NULL;
-	game->texture.south = NULL;
-	game->texture.east = NULL;
-	game->texture.west = NULL;
+	*game = (t_game){0};
 	game->floor_color.r = -1;
 	game->floor_color.g = -1;
 	game->floor_color.b = -1;
@@ -60,7 +72,6 @@ void	ft_resetter(t_game *game)
 	game->ceiling_color.g = -1;
 	game->ceiling_color.b = -1;
 	game->ceiling_color.rgb = -1;
-	game->gc = NULL;
 }
 
 void	init_game(t_game *game, char *file)
@@ -91,6 +102,5 @@ int	main(int ac, char **av)
 	mlx_hook(game.win, 17, 1L << 17, close_window, &game);
 	mlx_loop_hook(game.mlx, main_loop, &game);
 	mlx_loop(game.mlx);
-	gc_free_all(&game.gc);
 	return (0);
 }
