@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_loader.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itaskira < itaskira@student.42kocaeli.c    +#+  +:+       +#+        */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:47 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/09 16:28:32 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/11 13:11:24 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	load_textures(t_game *game)
 		|| !game->texture.east_img
 		|| !game->texture.west_img)
 	{
+		clean(game);
 		cleanup_textures(game);
 		free_exit(game, "Texture could not be loaded");
 	}

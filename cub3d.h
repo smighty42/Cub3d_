@@ -168,6 +168,7 @@ int				main_loop(t_game *game);
 void			update_player_position(t_game *game);
 int				close_window(t_game *game);
 void			cleanup_textures(t_game *game);
+void			clean(t_game *game);
 void			load_textures(t_game *game);
 int				get_texture_color(t_game *game, t_raycast ray, int y,
 					int wall_height);
