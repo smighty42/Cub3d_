@@ -146,24 +146,13 @@ typedef struct s_texture_calc
 
 void			*gc_malloc(t_gc **gc, size_t size);
 void			gc_free_all(t_gc **gc);
-void			gc_add(t_gc **gc, void *ptr);
-char			*ft_strdup_gc(const char *s1, t_gc **gc);
-char			*ft_strjoin_gc(const char *s1, const char *s2, t_gc **gc);
-char			**ft_split_gc(char const *s, char c, t_gc **gc);
-char			*ft_strtrim_gc(char const *s1, char const *set, t_gc **gc);
 void			parse_cub_file(t_game *game, char *filename);
 int				validate_map(t_game *game);
-int				find_and_init_player(t_game *game);
 void			free_exit(t_game *game, const char *message);
-int				ft_strlen(const char *s);
-int				ft_strncmp(const char *s1, const char *s2, int n);
-int				ft_atoi(const char *str);
 char			*get_next_line(int fd, t_gc **gc);
-char			*ft_strchr(const char *s, int c);
 void			render_floor_celling(t_game *game);
 void			my_put_pixel(t_game *game, int x, int y, int color);
 void			perform_raycasting(t_game *game);
-t_raycast		cast_ray(t_game *game, double angle);
 void			draw_wall_slice(t_game *game, int x, t_raycast ray);
 int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
@@ -173,8 +162,6 @@ int				close_window(t_game *game);
 void			cleanup_textures(t_game *game);
 void			clean(t_game *game);
 void			load_textures(t_game *game);
-int				get_texture_color(t_game *game, t_raycast ray, int y,
-					int wall_height);
 int				is_valid_position(t_game *game, double x, double y);
-void			ft_resetter(t_game *game);
+
 #endif
