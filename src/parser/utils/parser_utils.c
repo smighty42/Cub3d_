@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:14 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:42:13 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/13 13:06:51 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ int	check_file_ext(char *filename)
 	int	len;
 
 	len = ft_strlen(filename);
-	if (len < 4)
+	if (len < 5)
 		return (-1);
 	if (ft_strncmp(filename + len - 4, ".cub", 4) != 0)
+		return (-1);
+	if (filename[len - 5] == '/')
 		return (-1);
 	return (0);
 }
