@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_checks.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:30:53 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:43:44 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/13 14:37:54 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

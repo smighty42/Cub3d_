@@ -6,7 +6,7 @@
 /*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:14 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/13 13:06:51 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:38:48 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	**alloc_lines(char *filename, int *line_count, t_gc **gc)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
+	close(fd);
 	return (lines);
 }
 

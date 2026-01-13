@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:30 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:41:16 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/13 15:38:53 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ char	*ft_strdup_gc(const char *s1, t_gc **gc)
 	return (copy);
 }
 
-char	*ft_substr_gc(char const *s, unsigned int start, size_t len,
-		t_gc **gc)
+char	*ft_substr_gc(char const *s, unsigned int start, size_t len, t_gc **gc)
 {
 	char	*str;
 	size_t	s_len;
