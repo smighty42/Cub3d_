@@ -1,14 +1,14 @@
 NO ./textures/wall_red.xpm
 SO ./textures/wall_blue.xpm
 WE ./textures/wall_yellow.xpm
-    EA ./textures/wall_green.xpm
+EA ./textures/wall_green.xpm
 
 F 85,73,73
 C 135,206,244
 
 11111111111111111
 10000000000000001
-100N0000001111111
+100S0000001111111
 10000000001
 10000000001111111
 10000001100000001
