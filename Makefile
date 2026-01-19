@@ -90,4 +90,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+norm :
+	norminette src get_next_line cub3d.h
+
+.PHONY: all clean fclean re norm
