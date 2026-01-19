@@ -6,7 +6,7 @@
 /*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:06 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/13 18:04:04 by itaskira         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:43:24 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ static int	proc_elem(t_game *game, char *line, int *type)
 int	parse_elements(t_game *game, char **lines)
 {
 	int	i;
+	int	j;
 	int	tex_count;
 	int	type;
 
@@ -113,8 +114,16 @@ int	parse_elements(t_game *game, char **lines)
 			return (-1);
 		if (type == 1 || type == 2)
 			tex_count++;
-		else if (lines[i][0] == '1' || lines[i][0] == '0')
-			break ;
+		else
+		{
+			j = 0;
+			while (lines[i][j] && (lines[i][j] == ' ' || lines[i][j] == '\t'))
+				j++;
+			if (lines[i][j] == '1' || lines[i][j] == '0')
+				break ;
+			if((lines[i][j] != '\0'))
+				free_exit(game, "Invalid line in file");
+		}
 		i++;
 	}
 	return (tex_count);
