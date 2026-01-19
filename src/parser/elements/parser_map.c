@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:31:06 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:43:29 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/13 18:04:04 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,17 @@ int	parse_map_data(t_game *game, char **lines, int start)
 
 static int	proc_elem(t_game *game, char *line, int *type)
 {
+	char	*trimmed;
+	int		i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	trimmed = &line[i];
 	*type = is_texture_or_color(line);
 	if (*type == 1)
 	{
-		if (parse_texture_line(game, line) != 0)
+		if (parse_texture_line(game, trimmed) != 0)
 		{
 			free_exit(game, "Invalid texture line");
 			return (-1);
@@ -83,7 +90,7 @@ static int	proc_elem(t_game *game, char *line, int *type)
 	}
 	else if (*type == 2)
 	{
-		if (parse_color_line(game, line) != 0)
+		if (parse_color_line(game, trimmed) != 0)
 		{
 			free_exit(game, "Invalid color line");
 			return (-1);

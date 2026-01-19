@@ -5,6 +5,11 @@ MAKEFLAGS 			+= --no-print-directory
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
+
+GREEN = \033[0;32m
+CYAN = \033[0;36m
+RESET = \033[0m
+
 SRCS = \
 	src/main.c \
 	src/parser/parser.c \
@@ -49,15 +54,39 @@ INCLUDES = -I$(MLX_DIR)
 all: $(NAME)
 
 $(NAME): $(SRCS)
+	@echo "$(CYAN)"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣿⣿⣶⡄⠱⣦⠀⠀⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⡙⣿⣿⡄⢹⣧⠀⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⡿⢋⣠⠾⠋⠉⢹⣿⣷⢸⣿⡆⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⠏⣠⠞⠁⠀⠀⠀⢸⣿⣿⢸⣿⡇⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⠟⢡⡾⠋⠀⠀⠀⠀⠀⢸⣿⡇⢸⣿⠃⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡿⠁⣴⡟⠁⠀⠀⠀⠀⠀⠀⣿⡿⠀⣾⡟⠀⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠏⢠⣾⠏⠀⠀⠀⠀⠀⠀⠀⣼⠟⢁⣼⣿⠀⠀⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⣴⣄⠁⠰⡿⠃⠀⠀⠀⠀⠀⠀⢠⡾⠁⣴⣿⣿⡟⠀⠀⠀"
+	@echo "⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⠆⠀⠀⠀⠀⠀⠀⠀⢀⡿⢀⣾⣿⣿⣿⡇⠀⠀⠀"
+	@echo "⠀⠀⠀⠀⢀⣴⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⣼⡿⢃⣿⣿⠇⠀⠀⠀"
+	@echo "⠀⠀⠀⢠⣾⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⣼⠟⠁⣸⣿⠏⠀⠀⠀⠀"
+	@echo "⠀⠀⣰⣿⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠃⠀⠀⠀⠀⠀"
+	@echo "⠀⣾⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+	@echo "⠀⠛⠛⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+	@echo "$(RESET)"
+	@echo "$(GREEN)Compiling MLX library...$(RESET)"
 	@make -C $(MLX_DIR)
+	@echo "$(GREEN)Compiling cub3D...$(RESET)"
 	@$(CC) $(CFLAGS) $(SRCS) $(SRCS_GNL) $(SRCS_PARSER) $(MLX_FLAGS) $(INCLUDES) -lm -o $(NAME) -L/usr/X11/lib
+	@echo "$(GREEN)✓ cub3D compiled successfully!$(RESET)"
 
 clean:
-	@make -C $(MLX_DIR) clean
+	@echo "$(CYAN)Cleaning object files...$(RESET)"
+	-@make -C $(MLX_DIR) clean
 	@rm -f $(OBJS)
+	@echo "$(GREEN)✓ Clean complete!$(RESET)"
 
 fclean: clean
+	@echo "$(CYAN)Removing executable...$(RESET)"
 	@rm -f $(NAME)
+	@echo "$(GREEN)✓ Full clean complete!$(RESET)"
 
 re: fclean all
 

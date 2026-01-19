@@ -6,7 +6,7 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:02 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 15:19:43 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/19 14:11:45 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		free_exit(game, "MLX initialization failed.");
-	game->win = mlx_new_window(game->mlx, game->width, game->height, "cub3d");
+	game->win = mlx_new_window(game->mlx, game->width, game->height, "cub3D");
 	if (!game->win)
 	{
 		clean(game);
@@ -49,7 +49,7 @@ void	put_celling_floor(t_game *game)
 
 void	ft_resetter(t_game *game)
 {
-	*game = (t_game){0};
+	ft_bzero(game, sizeof(t_game));
 	game->floor_color.r = -1;
 	game->floor_color.g = -1;
 	game->floor_color.b = -1;

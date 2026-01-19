@@ -6,11 +6,25 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:10:44 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 15:19:19 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/19 14:10:40 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	while (i < n)
+	{
+		str[i] = '\0';
+		i++;
+	}
+}
 
 int	is_valid_position(t_game *game, double x, double y)
 {

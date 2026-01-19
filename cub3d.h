@@ -1,5 +1,17 @@
-#ifndef CUB3_D
-# define CUB3_D
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/19 14:08:21 by smayti            #+#    #+#             */
+/*   Updated: 2026/01/19 14:12:05 by smayti           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define PI 3.141592653
 
@@ -16,6 +28,7 @@
 # define TEX_SIZE 64
 # define WALL_BUFFER 0.3
 # include <stddef.h>
+
 typedef struct s_color
 {
 	int			r;
@@ -141,7 +154,7 @@ typedef struct s_texture_calc
 	int			x;
 	int			y;
 	int			draw_start;
-	
+
 }				t_texture_calc;
 
 void			*gc_malloc(t_gc **gc, size_t size);
@@ -163,5 +176,6 @@ void			cleanup_textures(t_game *game);
 void			clean(t_game *game);
 void			load_textures(t_game *game);
 int				is_valid_position(t_game *game, double x, double y);
+void			ft_bzero(void *s, size_t n);
 
 #endif

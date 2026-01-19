@@ -6,7 +6,7 @@
 /*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:11:05 by smayti            #+#    #+#             */
-/*   Updated: 2026/01/11 15:23:26 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/19 14:17:39 by smayti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ int	get_texture_color(t_game *game, t_raycast ray, int y, int wall_height)
 	texture_img = get_texture_img(game, ray);
 	t.data = mlx_get_data_addr(texture_img,
 			&t.bpp, &t.line_len, &t.endian);
+	if (!t.data)
+	{
+		clean(game);
+		free_exit(game, "MLX initialization failed.");
+	}
 	t.x = (int)(ray.wall_x * TEX_SIZE);
 	if ((ray.hit_side == 0 && cos(ray.ray_angle) > 0)
 		|| (ray.hit_side == 1 && sin(ray.ray_angle) < 0))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_neighbors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:30:42 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:40:20 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/13 15:38:57 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

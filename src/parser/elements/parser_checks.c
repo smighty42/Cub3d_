@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_checks.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:30:53 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:43:44 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/13 18:04:04 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,16 @@ int	is_valid_rgb_format(char *str)
 
 int	is_texture_or_color(char *line)
 {
+	int	i;
+
 	if (!line || !line[0])
 		return (0);
-	if (line[0] == ' ' || line[0] == '\t')
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (!line[i])
 		return (0);
-	if (line[0] == '1' || line[0] == '0')
+	if (line[i] == '1' || line[i] == '0')
 		return (0);
-	return (check_identifier(line));
+	return (check_identifier(&line[i]));
 }
