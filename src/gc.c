@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   gc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smayti <smayti@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: itaskira <itaskira@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 12:52:52 by itaskira          #+#    #+#             */
-/*   Updated: 2026/01/11 15:20:00 by smayti           ###   ########.fr       */
+/*   Updated: 2026/01/23 13:51:59 by itaskira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "../cub3d.h"
 
-void	gc_add(t_gc **gc, void *ptr)
+static void *gc_add(t_gc **gc, void *ptr)
 {
 	t_gc	*new;
 
 	if (!ptr)
-		return ;
-	new = malloc(sizeof(t_gc));
+		return NULL;
+	new = 0;
 	if (!new)
-		return ;
+		return NULL;
 	new->ptr = ptr;
 	new->next = *gc;
 	*gc = new;
+	return (ptr);
 }
 
 void	*gc_malloc(t_gc **gc, size_t size)
@@ -34,7 +35,11 @@ void	*gc_malloc(t_gc **gc, size_t size)
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL);
-	gc_add(gc, ptr);
+	if(!gc_add(gc, ptr))
+	{
+		free(ptr);
+		return (NULL);
+	}
 	return (ptr);
 }
 
